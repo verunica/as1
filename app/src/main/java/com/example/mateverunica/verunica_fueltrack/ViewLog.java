@@ -66,7 +66,7 @@ public class ViewLog extends AppCompatActivity{
             currEntry = (Entry) arrayListIterator.next();
             totalCost = totalCost + (currEntry.getFuelAmount() * (currEntry.getUnitCost() / 100 ));
         }
-        totalCostView.setText(String.format("%.2f",totalCost));
+        totalCostView.setText("$ " + String.format("%.2f",totalCost));
 
         entryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -79,7 +79,6 @@ public class ViewLog extends AppCompatActivity{
                 intent.putExtra("position", position);
 
                 startActivity(intent);
-
 
 
             }
@@ -96,7 +95,7 @@ public class ViewLog extends AppCompatActivity{
             currEntry = (Entry) arrayListIterator.next();
             totalCost = totalCost + (currEntry.getFuelAmount() * (currEntry.getUnitCost() / 100 ));
         }
-        totalCostView.setText(String.format("%.2f",totalCost));
+        totalCostView.setText("$ " + String.format("%.2f",totalCost));
         EntryAdapter adapter = new EntryAdapter(this, entryArray);
         entryList.setAdapter(adapter);
     }
