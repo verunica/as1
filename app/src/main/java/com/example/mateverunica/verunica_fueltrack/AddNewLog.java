@@ -28,8 +28,12 @@ import com.google.gson.reflect.TypeToken;
 /**
  * Created by Mate Verunica on 1/14/2016.
  */
+
+// This class will take care of adding a new log to the arraylist
 public class AddNewLog extends AppCompatActivity{
 
+
+    // Initializing variables
     private EditText dateText;
     private EditText gasStation;
     private EditText odometer;
@@ -42,11 +46,14 @@ public class AddNewLog extends AppCompatActivity{
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_log_layout);
 
+
+        // Set the EditText boxes to variables
         dateText = (EditText) findViewById(R.id.editText);
         gasStation = (EditText) findViewById(R.id.editText2);
         odometer = (EditText) findViewById(R.id.editText3);
@@ -55,18 +62,48 @@ public class AddNewLog extends AppCompatActivity{
         unitCost = (EditText) findViewById(R.id.editText6);
 
 
-
+        // Initialize the saveButton and then create a OnClickListener
         Button saveButton = (Button) findViewById(R.id.saveButton);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // First Validate Format of entries
+                Boolean setter = true;
                 setResult(RESULT_OK);
-                Entry e = new Entry(dateText.getText().toString(), gasStation.getText().toString(), Float.valueOf(odometer.getText().toString()), fuelGrade.getText().toString(), Float.valueOf(fuelAmount.getText().toString()), Float.valueOf(unitCost.getText().toString()));
-                entryArrayList.add(e);
-                saveInFile();
-                finish();
+                Validation validation = new Validation();
+                if(!validation.validDate(dateText.getText().toString())){
+                    dateText.setError("Please add a valid date YYYY-MM-DD");
+                    setter = false;
+                }
+                if(!validation.validGasStation(gasStation.getText().toString())){
+                    gasStation.setError("Please enter text for the gas station");
+                    setter = false;
+                }
+                if(!validation.validOdometer(odometer.getText().toString())){
+                    odometer.setError("Please enter a number with one decimal place");
+                    setter = false;
+                }
+                if(!validation.validFuelGrade(fuelGrade.getText().toString())){
+                    fuelGrade.setError("Please enter text for the fuel grade");
+                    setter = false;
+                }
+                if(!validation.validFuelAmount(fuelAmount.getText().toString())){
+                    fuelAmount.setError("Please enter a number with 3 decimal places");
+                    setter = false;
+                }
+                if(!validation.validUnitCost(unitCost.getText().toString())){
+                    unitCost.setError("Please enter a number with 2 decimal places");
+                    setter = false;
+                }
+                // If the input passes all validation tests then proceed to add to log
+                // If fails then show errors and
+                if (setter == true) {
+                    Entry e = new Entry(dateText.getText().toString(), gasStation.getText().toString(), Float.valueOf(odometer.getText().toString()), fuelGrade.getText().toString(), Float.valueOf(fuelAmount.getText().toString()), Float.valueOf(unitCost.getText().toString()));
+                    entryArrayList.add(e);
+                    saveInFile();
+                    finish();
+                }
             }
         });
 

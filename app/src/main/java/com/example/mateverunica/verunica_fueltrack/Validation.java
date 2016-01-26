@@ -25,6 +25,77 @@ public class  Validation {
 
     }
 
+    public boolean validGasStation (String gasStation){
+        String re1="/*[A-Z]";	// Word 1
+
+        Pattern p = Pattern.compile(re1,Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+        Matcher m = p.matcher(gasStation);
+        if (m.find())
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean validOdometer (String odometer){
+        String re1="^\\d+\\.?\\d{1,1}$";	// Float 1
+
+        Pattern p = Pattern.compile(re1,Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+        Matcher m = p.matcher(odometer);
+        if (m.find())
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean validFuelGrade (String fuelGrade){
+        String re1="/*[A-Z]";	// Word 1
+
+        Pattern p = Pattern.compile(re1,Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+        Matcher m = p.matcher(fuelGrade);
+        if (m.find())
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean validFuelAmount (String fuelAmount){
+        String re1="^\\d+\\.?\\d{3,3}$";	// Float 1
+
+        Pattern p = Pattern.compile(re1,Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+        Matcher m = p.matcher(fuelAmount);
+        if (m.find())
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean validUnitCost (String unitCost){
+        String re1="^\\d+\\.?\\d{1,1}$";	// Float 1
+
+        Pattern p = Pattern.compile(re1,Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+        Matcher m = p.matcher(unitCost);
+        if (m.find())
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }
+
 
 
 

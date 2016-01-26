@@ -68,11 +68,40 @@ public class EditLog extends AppCompatActivity{
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                arrayList.remove(position);
-                Entry e = new Entry(dateText.getText().toString(), gasStation.getText().toString(), Float.valueOf(odometer.getText().toString()), fuelGrade.getText().toString(), Float.valueOf(fuelAmount.getText().toString()), Float.valueOf(unitCost.getText().toString()));
-                arrayList.add(position, e);
-                saveInFile();
-                finish();
+                Boolean setter = true;
+                setResult(RESULT_OK);
+                Validation validation = new Validation();
+                if(!validation.validDate(dateText.getText().toString())){
+                    dateText.setError("Please add a valid date YYYY-MM-DD");
+                    setter = false;
+                }
+                if(!validation.validGasStation(gasStation.getText().toString())){
+                    gasStation.setError("Please enter text for the gas station");
+                    setter = false;
+                }
+                if(!validation.validOdometer(odometer.getText().toString())){
+                    odometer.setError("Please enter a number with one decimal place");
+                    setter = false;
+                }
+                if(!validation.validFuelGrade(fuelGrade.getText().toString())){
+                    fuelGrade.setError("Please enter text for the fuel grade");
+                    setter = false;
+                }
+                if(!validation.validFuelAmount(fuelAmount.getText().toString())){
+                    fuelAmount.setError("Please enter a number with 3 decimal places");
+                    setter = false;
+                }
+                if(!validation.validUnitCost(unitCost.getText().toString())) {
+                    unitCost.setError("Please enter a number with 2 decimal places");
+                    setter = false;
+                }
+                if(setter == true){
+                    arrayList.remove(position);
+                    Entry e = new Entry(dateText.getText().toString(), gasStation.getText().toString(), Float.valueOf(odometer.getText().toString()), fuelGrade.getText().toString(), Float.valueOf(fuelAmount.getText().toString()), Float.valueOf(unitCost.getText().toString()));
+                    arrayList.add(position, e);
+                    saveInFile();
+                    finish();
+                }
             }
         });
 

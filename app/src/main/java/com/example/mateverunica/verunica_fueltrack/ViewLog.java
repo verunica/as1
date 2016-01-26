@@ -28,6 +28,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Serializable;
 import java.lang.reflect.Type;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -60,13 +61,12 @@ public class ViewLog extends AppCompatActivity{
 
         // Using Iterator to calculate the total cost
         Iterator arrayListIterator = entryArray.iterator();
-        //currEntry = entryArray.get(0);
 
         while(arrayListIterator.hasNext()){
             currEntry = (Entry) arrayListIterator.next();
             totalCost = totalCost + (currEntry.getFuelAmount() * (currEntry.getUnitCost() / 100 ));
         }
-        totalCostView.setText(String.valueOf(totalCost));
+        totalCostView.setText(String.format("%.2f",totalCost));
 
         entryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -89,6 +89,14 @@ public class ViewLog extends AppCompatActivity{
     protected void onStart() {
         super.onStart();
         loadFromFile();
+        totalCost = 0;
+        Iterator arrayListIterator = entryArray.iterator();
+
+        while(arrayListIterator.hasNext()){
+            currEntry = (Entry) arrayListIterator.next();
+            totalCost = totalCost + (currEntry.getFuelAmount() * (currEntry.getUnitCost() / 100 ));
+        }
+        totalCostView.setText(String.format("%.2f",totalCost));
         EntryAdapter adapter = new EntryAdapter(this, entryArray);
         entryList.setAdapter(adapter);
     }
