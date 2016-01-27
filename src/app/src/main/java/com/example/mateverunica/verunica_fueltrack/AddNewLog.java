@@ -107,6 +107,7 @@ public class AddNewLog extends AppCompatActivity{
             }
         });
 
+        // If
         Button cancelButton = (Button) findViewById(R.id.cancelButton);
 
         cancelButton.setOnClickListener(new View.OnClickListener(){
