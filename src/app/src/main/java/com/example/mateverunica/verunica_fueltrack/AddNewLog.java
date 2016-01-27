@@ -107,7 +107,7 @@ public class AddNewLog extends AppCompatActivity{
             }
         });
 
-        // If
+        // Initialize the cancelButton and make it finish the activity
         Button cancelButton = (Button) findViewById(R.id.cancelButton);
 
         cancelButton.setOnClickListener(new View.OnClickListener(){
@@ -125,6 +125,7 @@ public class AddNewLog extends AppCompatActivity{
 
     }
 
+    // This code was based off of the lab code for lonelyTwitter
     private void loadFromFile() {
         try {
             FileInputStream fis = openFileInput(FILENAME);
@@ -136,10 +137,8 @@ public class AddNewLog extends AppCompatActivity{
              entryArrayList = gson.fromJson(in, listType);
 
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             entryArrayList = new ArrayList<Entry>();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             throw new RuntimeException();
         }
     }
@@ -154,10 +153,8 @@ public class AddNewLog extends AppCompatActivity{
             out.flush();
             fos.close();
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             throw new RuntimeException();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             throw new RuntimeException();
         }
     }

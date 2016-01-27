@@ -12,6 +12,8 @@ import java.util.ArrayList;
 /**
  * Created by verunica on 1/23/16.
  */
+
+// Got this code from https://guides.codepath.com/android/Using-an-ArrayAdapter-with-ListView and modified on Jan 26th 2016
 public class EntryAdapter extends ArrayAdapter<Entry> {
     public EntryAdapter(Context context, ArrayList<Entry> entries) {
         super(context, 0, entries);

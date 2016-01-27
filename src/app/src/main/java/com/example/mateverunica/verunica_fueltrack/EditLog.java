@@ -24,14 +24,13 @@ import java.util.Iterator;
 
 public class EditLog extends AppCompatActivity{
 
+    // Initialize variables to be used
     private EditText dateText;
     private EditText gasStation;
     private EditText odometer;
     private EditText fuelGrade;
     private EditText fuelAmount;
     private EditText unitCost;
-    private Button saveButton;
-    private Button cancelButton;
     private int position;
     private static final String FILENAME = "file.sav";
     private ArrayList<Entry> arrayList = new ArrayList<Entry>();
@@ -40,6 +39,7 @@ public class EditLog extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_log);
+        // This recieves the ArrayList and position of the item to be edited from the previous activity to be used here
         Intent i = getIntent();
         final Entry entry = (Entry) i.getSerializableExtra("message");
         arrayList = (ArrayList) i.getSerializableExtra("arrayList");
@@ -47,6 +47,7 @@ public class EditLog extends AppCompatActivity{
         final Button saveButton = (Button) findViewById(R.id.saveButton_edit);
         Button cancelButton = (Button) findViewById(R.id.cancelButton_edit);
 
+        // Set the EditText boxes to variables
         dateText = (EditText) findViewById(R.id.editText_edit);
         gasStation = (EditText) findViewById(R.id.editText2_edit);
         odometer = (EditText) findViewById(R.id.editText3_edit);
@@ -54,7 +55,7 @@ public class EditLog extends AppCompatActivity{
         fuelAmount = (EditText) findViewById(R.id.editText5_edit);
         unitCost = (EditText) findViewById(R.id.editText6_edit);
 
-
+        //Populate the EditText boxes with values to be edited
         dateText.setText(entry.getDate());
         gasStation.setText(entry.getGasStation());
         odometer.setText(entry.getOdometerReading().toString());
@@ -64,12 +65,13 @@ public class EditLog extends AppCompatActivity{
 
 
 
-
+        //Initialize the saveButton
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Boolean setter = true;
                 setResult(RESULT_OK);
+                //Validate the input
                 Validation validation = new Validation();
                 if(!validation.validDate(dateText.getText().toString())){
                     dateText.setError("Please add a valid date YYYY-MM-DD");
@@ -95,6 +97,7 @@ public class EditLog extends AppCompatActivity{
                     unitCost.setError("Please enter a number with 2 decimal places");
                     setter = false;
                 }
+                //if input valid remove the item from the list and renter the new values into the same position of the ArrayList
                 if(setter == true){
                     arrayList.remove(position);
                     Entry e = new Entry(dateText.getText().toString(), gasStation.getText().toString(), Float.valueOf(odometer.getText().toString()), fuelGrade.getText().toString(), Float.valueOf(fuelAmount.getText().toString()), Float.valueOf(unitCost.getText().toString()));
@@ -105,7 +108,7 @@ public class EditLog extends AppCompatActivity{
             }
         });
 
-
+        //Initialize the cancelButton
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,7 +118,7 @@ public class EditLog extends AppCompatActivity{
 
     }
 
-
+    //Used to save the edited entry to the file
     private void saveInFile() {
         try {
             FileOutputStream fos = openFileOutput(FILENAME,

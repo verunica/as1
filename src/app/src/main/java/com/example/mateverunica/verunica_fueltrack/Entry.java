@@ -8,6 +8,7 @@ import java.util.Date;
  */
 public class Entry implements Serializable {
 
+    //Initialize the class variables
     private String date;
     private String gasStation;
     private Float odometerReading;
@@ -15,6 +16,7 @@ public class Entry implements Serializable {
     private Float fuelAmount;
     private Float unitCost;
 
+    //Constructor of the class
     public Entry(String date, String gasStation, Float odometerReading, String fuelGrade, Float fuelAmount, Float unitCost) {
         this.date = date;
         this.gasStation = gasStation;
@@ -24,6 +26,7 @@ public class Entry implements Serializable {
         this.unitCost = unitCost;
     }
 
+    // The setters and getters for the variables
     public String getDate() {
         return date;
     }

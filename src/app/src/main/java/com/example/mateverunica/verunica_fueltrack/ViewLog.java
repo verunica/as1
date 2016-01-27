@@ -39,6 +39,7 @@ import java.util.Iterator;
 // This class allows the user to view the items in the listview
 public class ViewLog extends AppCompatActivity{
 
+    // Initialize the Variables
     private ArrayList<Entry> entryArray;
     private ListView entryList;
     private static final String FILENAME = "file.sav";
@@ -52,10 +53,13 @@ public class ViewLog extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_log_layout);
 
+        //Set entryList to ListView
         entryList = (ListView) findViewById(R.id.listView);
         loadFromFile();
+        // Initialize the adapter
         EntryAdapter adapter = new EntryAdapter(this, entryArray);
         entryList.setAdapter(adapter);
+        //
         totalCostView = (TextView) findViewById(R.id.textView2);
 
 
@@ -68,6 +72,7 @@ public class ViewLog extends AppCompatActivity{
         }
         totalCostView.setText("$ " + String.format("%.2f",totalCost));
 
+        // Using an item on click listener to do editing and go to EditLog.class
         entryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             public void onItemClick(AdapterView adapterView, View view, int position, long id) {
@@ -87,7 +92,9 @@ public class ViewLog extends AppCompatActivity{
     @Override
     protected void onStart() {
         super.onStart();
+        // Reload the file on start after returning from the edit log activity
         loadFromFile();
+        // Reinitialize the totalCost to be 0 then calculate new values based on the new entries
         totalCost = 0;
         Iterator arrayListIterator = entryArray.iterator();
 
@@ -111,10 +118,8 @@ public class ViewLog extends AppCompatActivity{
             entryArray = gson.fromJson(in, listType);
 
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             entryArray = new ArrayList<Entry>();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             throw new RuntimeException();
         }
     }
@@ -129,10 +134,8 @@ public class ViewLog extends AppCompatActivity{
             out.flush();
             fos.close();
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             throw new RuntimeException();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             throw new RuntimeException();
         }
     }

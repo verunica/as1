@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    // When Add New Log is clicked start new intent to go to AddNewLog.class
     public void newLog (View view){
         Intent intent = new Intent(this, AddNewLog.class);
 
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // When View Log is clicked start new intent to go to ViewLog.class
     public void viewLog (View view){
         Intent intent = new Intent(this, ViewLog.class);
 
